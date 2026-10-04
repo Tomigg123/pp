@@ -1,0 +1,6 @@
+{
+  "name": "KasirKu POS",
+  "description": "Aplikasi Kasir Sederhana & Modern dengan login, database Firestore realtime, POS checkout, struk cetak, dan dashboard penjualan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

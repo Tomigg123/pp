@@ -1,0 +1,214 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Item or product sold in the store",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Product name",
+          "maxLength": 100
+        },
+        "sku": {
+          "type": "string",
+          "description": "Product barcode or SKU",
+          "maxLength": 50
+        },
+        "category": {
+          "type": "string",
+          "description": "Product category",
+          "maxLength": 50
+        },
+        "costPrice": {
+          "type": "number",
+          "description": "Buying / cost price"
+        },
+        "price": {
+          "type": "number",
+          "description": "Selling price"
+        },
+        "stock": {
+          "type": "number",
+          "description": "Available stock quantity"
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of measurement (pcs, cup, porsi, etc.)",
+          "maxLength": 20
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Product thumbnail URL",
+          "maxLength": 500
+        },
+        "minStock": {
+          "type": "number",
+          "description": "Minimum stock warning threshold"
+        },
+        "lastUpdatedBy": {
+          "type": "string",
+          "description": "Identifier or email of user who last modified the product",
+          "maxLength": 100
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last updated timestamp"
+        }
+      },
+      "required": ["name", "price", "stock", "category"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Sales transaction record created by cashier",
+      "type": "object",
+      "properties": {
+        "invoiceNumber": {
+          "type": "string",
+          "description": "Unique invoice receipt number",
+          "maxLength": 60
+        },
+        "cashierId": {
+          "type": "string",
+          "description": "UID of the cashier who handled the sale",
+          "maxLength": 128
+        },
+        "cashierName": {
+          "type": "string",
+          "description": "Name of the cashier",
+          "maxLength": 100
+        },
+        "cashierEmail": {
+          "type": "string",
+          "description": "Email of the cashier",
+          "maxLength": 100
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Subtotal before discounts or taxes"
+        },
+        "discountAmount": {
+          "type": "number",
+          "description": "Discount applied"
+        },
+        "taxAmount": {
+          "type": "number",
+          "description": "Tax applied"
+        },
+        "finalAmount": {
+          "type": "number",
+          "description": "Net payable amount"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "Payment method used (cash, qris, transfer, card)",
+          "maxLength": 30
+        },
+        "paymentAmount": {
+          "type": "number",
+          "description": "Cash given by customer"
+        },
+        "changeAmount": {
+          "type": "number",
+          "description": "Change returned to customer"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the transaction (completed, cancelled)",
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Transaction timestamp"
+        }
+      },
+      "required": ["invoiceNumber", "cashierId", "finalAmount", "paymentMethod", "status"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Store cashier or manager account profile",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Cashier email address",
+          "maxLength": 100
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Full name or cashier nickname",
+          "maxLength": 100
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "Profile avatar image URL",
+          "maxLength": 500
+        },
+        "role": {
+          "type": "string",
+          "description": "Role in the POS (super_admin, admin, kasir)",
+          "maxLength": 30
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Account created timestamp"
+        }
+      },
+      "required": ["email", "displayName"]
+    },
+    "StaffAdmin": {
+      "title": "StaffAdmin",
+      "description": "Store administrator or cashier staff record assigned by super admin",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Staff email",
+          "maxLength": 100
+        },
+        "name": {
+          "type": "string",
+          "description": "Staff name",
+          "maxLength": 100
+        },
+        "role": {
+          "type": "string",
+          "description": "Staff role (admin, kasir)",
+          "maxLength": 30
+        },
+        "assignedBy": {
+          "type": "string",
+          "description": "Email or UID of Super Admin",
+          "maxLength": 100
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Stores products available in store catalog"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Stores completed sales transactions"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Stores user profiles"
+    },
+    "/admins/{adminId}": {
+      "schema": "StaffAdmin",
+      "description": "Stores admin accounts managed by Super Admin"
+    }
+  }
+}
